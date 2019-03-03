@@ -1,0 +1,27 @@
+class Chain:
+    '''实现单链表'''
+#方法一：两个数组，同样的位置一个储存元素，一个储存指针
+    def __init__(self,value,point):
+        if len(value)!=len(point):
+            print('数量不一致')
+        self.value=value
+        self.point=point
+    def get(self): #顺序输出元素
+        print(self.value[0])
+        next=self.point[0]
+        while next!=-1:
+            print(self.value[next])
+            next=self.point[next]
+    def insert_chain(self,new_value,position):#  在链表中插入新的元素。new_value要插入的值，position上一个值的位置。
+        self.value.append(new_value)#加入新元素
+        self.point.append(self.point[position]) #在对应位置插入原来元素的指针，即把前一个元素的指针赋给新插入的值，插入的元素指向前一个元素的下一个
+        #如果是双向链表，还要通过point[position]找到当前元素前一个元素原来的下一个元素，然后在左指针列表中，将原来的下一个元素的左指针指向新元素，
+        # 即leftpoint[point[position]]=len(value)-1
+        #point[position]之前的下一个元素的下标，leftponit[point[position]]之前下一个元素的前一个元素的下标
+        self.point[position]=len(self.value)-1  #插入新元素的上一个元素的指针指向最后一个元素，也就是新元素
+
+        #先把前一个元素的指针赋给新插入的元素，不然等于把当前元素的位置给了当前元素，而不是当前元素下一个元素的位置。
+
+    def del_chain(self,position):#删除元素，已知删除元素的前一个元素下标，将此元素的指针指向原来下一个的指针，即下一个的下一个
+        s=position
+        self.point[s]=self.point[self.point[s]]
